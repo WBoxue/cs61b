@@ -34,6 +34,14 @@ public class Planet {
         return G * p.mass * mass / (calcDistance(p) * calcDistance(p));
     }
 
+    public double calcForceExertedByX(Planet p) {
+        return (p.xxPos - xxPos) * calcForceExertedBy(p) / calcDistance(p);
+    }
+
+    public double calcForceExertedByY(Planet p) {
+        return (p.yyPos - yyPos) * calcForceExertedBy(p) / calcDistance(p);
+    }
+
     public double calcNetForceExertedByX(Planet[] planets) {
         double Fx = 0;
         for (Planet p: planets) {
