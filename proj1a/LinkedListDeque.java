@@ -102,6 +102,6 @@ public class LinkedListDeque<T> {
         if (index == 0) {
             return p.item;
         }
-        return recursiveHelper(p.next, index--);
+        return recursiveHelper(p.next, index - 1);
     }
 }

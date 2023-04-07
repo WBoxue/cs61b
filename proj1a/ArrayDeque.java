@@ -82,10 +82,10 @@ public class ArrayDeque<T> {
     //Gets the item at the given index, where 0 is the front, 1 is the next item, and so forth.
     // If no such item exists, returns null. Must not alter the deque!
     public T get(int index) {
-        if (index >= array.length) {
+        if (index >= size) {
             return null;
         }
-        return array[head + index];
+        return array[(head + index) % array.length];
     }
 
     //move +1 or -1.
