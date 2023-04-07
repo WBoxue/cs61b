@@ -56,7 +56,7 @@ public class ArrayDeque<T> {
         if (isEmpty()) {
             return null;
         }
-        while (size - 1 < array.length / 4 && array.length >= 16) {
+        while (size < array.length / 4 && array.length >= 16) {
             resizeDivFour();
         }
         T item = array[head];
@@ -70,7 +70,7 @@ public class ArrayDeque<T> {
         if (isEmpty()) {
             return null;
         }
-        while (size - 1 < array.length / 4 && array.length >= 16) {
+        while (size < array.length / 4 && array.length >= 16) {
             resizeDivFour();
         }
         rear = getMoved(rear, -1);
@@ -79,8 +79,12 @@ public class ArrayDeque<T> {
         return item;
     }
 
-    //Gets the item at the given index, where 0 is the front, 1 is the next item, and so forth. If no such item exists, returns null. Must not alter the deque!
+    //Gets the item at the given index, where 0 is the front, 1 is the next item, and so forth.
+    // If no such item exists, returns null. Must not alter the deque!
     public T get(int index) {
+        if (index >= array.length) {
+            return null;
+        }
         return array[head + index];
     }
 
