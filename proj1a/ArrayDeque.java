@@ -14,7 +14,7 @@ public class ArrayDeque<T> {
 
     //Adds an item of type T to the front of the deque.
     public void addFirst(T item) {
-        if(getMoved(head, -1) == rear) {
+        while (size + 1 >= array.length) {
             resizeMulTwo();
         }
         head = getMoved(head, -1);
@@ -24,7 +24,7 @@ public class ArrayDeque<T> {
 
     //Adds an item of type T to the back of the deque.
     public void addLast(T item) {
-        if(getMoved(rear, 1) == head) {
+        while (size + 1 >= array.length) {
             resizeMulTwo();
         }
         array[rear] = item;
@@ -53,7 +53,10 @@ public class ArrayDeque<T> {
 
     //Removes and returns the item at the front of the deque. If no such item exists, returns null.
     public T removeFirst() {
-        if (size - 1 < array.length / 4) {
+        if (isEmpty()) {
+            return null;
+        }
+        while (size - 1 < array.length / 4 && array.length >= 16) {
             resizeDivFour();
         }
         T item = array[head];
@@ -64,7 +67,10 @@ public class ArrayDeque<T> {
 
     //Removes and returns the item at the back of the deque. If no such item exists, returns null.
     public T removeLast() {
-        if (size - 1 < array.length / 4) {
+        if (isEmpty()) {
+            return null;
+        }
+        while (size - 1 < array.length / 4 && array.length >= 16) {
             resizeDivFour();
         }
         rear = getMoved(rear, -1);
