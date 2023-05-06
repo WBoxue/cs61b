@@ -60,7 +60,7 @@ public class TestComplexOomage {
 
         for (int i = 0; i < N; i++) {
             ArrayList<Integer> params = randomList();
-            //params.addAll(suffix);
+            params.addAll(suffix);
             deadlyList.add(new ComplexOomage(params));
         }
 
