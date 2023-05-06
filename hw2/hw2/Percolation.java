@@ -14,9 +14,9 @@ public class Percolation {
         }
         this.N = N;
         sites = new int[N][N];
-        uf = new WeightedQuickUnionUF(N * N + 2);
+        uf = new WeightedQuickUnionUF(N * N + 1);
 
-        for (int i = 0; i < N; i++) {   //N * N connect first floor, N * N + 1 connect last floor
+        for (int i = 0; i < N; i++) {   //N * N connect first floor
             uf.union(N * N, i);
             //uf.union(N * N + 1, N * (N - 1) + i);
         }
