@@ -27,7 +27,7 @@ public class PercolationStats {
         int[] res = new int[T];
         int dx;
         int dy;
-        for (int i = 0; i < T; i ++) {
+        for (int i = 0; i < T; i++) {
             while (!percolation.percolates()) {
                 dx = StdRandom.uniform(N);
                 dy = StdRandom.uniform(N);
