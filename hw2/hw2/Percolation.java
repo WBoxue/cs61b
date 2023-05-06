@@ -18,7 +18,7 @@ public class Percolation {
 
         for (int i = 0; i < N; i++) {   //N * N connect first floor, N * N + 1 connect last floor
             uf.union(N * N, i);
-            uf.union(N * N + 1, N * (N - 1) + i);
+            //uf.union(N * N + 1, N * (N - 1) + i);
         }
     }
 
@@ -36,8 +36,8 @@ public class Percolation {
 
     public void open(int row, int col) {    // open the site (row, col) if it is not open already
         if (!detectArgument(row, col)) {
-            throw new java.lang.IndexOutOfBoundsException("row:" + row +
-                    ", col:" + col + " is out of index.");
+            throw new java.lang.IndexOutOfBoundsException("row:" + row
+                    + ", col:" + col + " is out of index.");
         }
         if (isOpen(row, col)) {
             return;
@@ -55,16 +55,16 @@ public class Percolation {
     }
     public boolean isOpen(int row, int col) {   // is the site (row, col) open?
         if (!detectArgument(row, col)) {
-            throw new java.lang.IndexOutOfBoundsException("row:" + row +
-                    ", col:" + col + " is out of index.");
+            throw new java.lang.IndexOutOfBoundsException("row:" + row
+                    + ", col:" + col + " is out of index.");
         }
 
         return sites[row][col] > 0;
     }
     public boolean isFull(int row, int col) {   // is the site (row, col) full?
         if (!detectArgument(row, col)) {
-            throw new java.lang.IndexOutOfBoundsException("row:" + row +
-                    ", col:" + col + " is out of index.");
+            throw new java.lang.IndexOutOfBoundsException("row:" + row
+                    + ", col:" + col + " is out of index.");
         }
 
         return uf.connected(transform(row, col), N * N) && isOpen(row, col);
@@ -73,8 +73,13 @@ public class Percolation {
         return openNum;
     }
     public boolean percolates() {   // does the system percolate?
-
-        return uf.connected(N * N, N * N + 1);
+        for (int i = 0; i < N; i++) {
+            if (uf.connected(N * N, N * (N - 1) + i) && sites[N - 1][i] > 0) {
+                return true;
+            }
+        }
+        return false;
+        //return uf.connected(N * N, N * N + 1);
     }
     public static void main(String[] args) {    // use for unit testing (not required)
 

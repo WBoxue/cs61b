@@ -6,7 +6,7 @@ import edu.princeton.cs.introcs.StdStats;
 public class PercolationStats {
     private int N;
     private int T;
-    private Percolation percolation;
+    private Percolation[] percolation;
 
     private int[] a;
 
@@ -18,24 +18,24 @@ public class PercolationStats {
 
         this.N = N;
         this.T = T;
-        percolation = pf.make(N);
-
-        a = startT();
+        for (int i = 0; i < T; i++) {
+            percolation[i] = pf.make(N);
+        }
+        startT();
     }
 
-    private int[] startT() {
-        int[] res = new int[T];
+    private void startT() {
+        a = new int[T];
         int dx;
         int dy;
         for (int i = 0; i < T; i++) {
-            while (!percolation.percolates()) {
+            while (!percolation[i].percolates()) {
                 dx = StdRandom.uniform(N);
                 dy = StdRandom.uniform(N);
-                percolation.open(dx, dy);
+                percolation[i].open(dx, dy);
             }
-            res[i] = percolation.numberOfOpenSites();
+            a[i] = percolation[i].numberOfOpenSites();
         }
-        return res;
     }
 
     public double mean() {  // sample mean of percolation threshold
