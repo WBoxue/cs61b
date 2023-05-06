@@ -6,6 +6,7 @@ public class Percolation {
     private int N;
     private int[][] sites;
     private WeightedQuickUnionUF uf;
+    private WeightedQuickUnionUF uf2;
     private int openNum;
 
     public Percolation(int N) {    // create N-by-N grid, with all sites initially blocked
@@ -15,10 +16,13 @@ public class Percolation {
         this.N = N;
         sites = new int[N][N];
         uf = new WeightedQuickUnionUF(N * N + 1);
+        uf2 = new WeightedQuickUnionUF(N * N + 2);
 
         for (int i = 0; i < N; i++) {   //N * N connect first floor
             uf.union(N * N, i);
-            //uf.union(N * N + 1, N * (N - 1) + i);
+            
+            uf2.union(N * N, i);
+            uf2.union(N * N + 1, N * (N - 1) + i);
         }
     }
 
@@ -48,6 +52,7 @@ public class Percolation {
         for (int i = 0; i < 4; i++) {
             if (detectArgument(row + r[i], col + c[i]) && sites[row + r[i]][col + c[i]] > 0) {
                 uf.union(transform(row, col), transform(row + r[i], col + c[i]));
+                uf2.union(transform(row, col), transform(row + r[i], col + c[i]));
             }
         }
         sites[row][col] = 1;
@@ -73,13 +78,7 @@ public class Percolation {
         return openNum;
     }
     public boolean percolates() {   // does the system percolate?
-        for (int i = 0; i < N; i++) {
-            if (uf.connected(N * N, N * (N - 1) + i) && sites[N - 1][i] > 0) {
-                return true;
-            }
-        }
-        return false;
-        //return uf.connected(N * N, N * N + 1);
+        return uf2.connected(N * N, N * N + 1);
     }
     public static void main(String[] args) {    // use for unit testing (not required)
 

@@ -18,6 +18,7 @@ public class PercolationStats {
 
         this.N = N;
         this.T = T;
+        percolation = new Percolation[T];
         for (int i = 0; i < T; i++) {
             percolation[i] = pf.make(N);
         }
