@@ -20,7 +20,7 @@ public class Percolation {
 
         for (int i = 0; i < N; i++) {   //N * N connect first floor
             uf.union(N * N, i);
-            
+
             uf2.union(N * N, i);
             uf2.union(N * N + 1, N * (N - 1) + i);
         }
@@ -78,6 +78,9 @@ public class Percolation {
         return openNum;
     }
     public boolean percolates() {   // does the system percolate?
+        if (N == 1) {
+            return isOpen(0, 0);
+        }
         return uf2.connected(N * N, N * N + 1);
     }
     public static void main(String[] args) {    // use for unit testing (not required)

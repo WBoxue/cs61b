@@ -8,7 +8,7 @@ public class PercolationStats {
     private int T;
     private Percolation[] percolation;
 
-    private int[] a;
+    private double[] a;
 
     // perform T independent experiments on an N-by-N grid
     public PercolationStats(int N, int T, PercolationFactory pf) {
@@ -26,7 +26,7 @@ public class PercolationStats {
     }
 
     private void startT() {
-        a = new int[T];
+        a = new double[T];
         int dx;
         int dy;
         for (int i = 0; i < T; i++) {
@@ -35,7 +35,7 @@ public class PercolationStats {
                 dy = StdRandom.uniform(N);
                 percolation[i].open(dx, dy);
             }
-            a[i] = percolation[i].numberOfOpenSites();
+            a[i] = percolation[i].numberOfOpenSites() / (N * N);
         }
     }
 
